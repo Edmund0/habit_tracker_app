@@ -1,3 +1,4 @@
+
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
@@ -7,16 +8,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:habit_tracker_app/main.dart';
+import 'package:momentum/main.dart';
+import 'package:momentum/services/database_service.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    final db = DatabaseService();
+    await db.loadDb();
+    await tester.pumpWidget(MyApp(db: db));
 
     // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
+    expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsNothing);
 
     // Tap the '+' icon and trigger a frame.

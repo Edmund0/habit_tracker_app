@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:momentum/services/database_service.dart';
-import 'package:momentum/widgets/settings_modal.dart';
+import 'package:momentum/widgets/settings/settings_modal.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 

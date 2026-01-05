@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../theme/app_theme.dart';
 import '../providers/check_in_provider.dart';
 
@@ -16,8 +17,13 @@ class ActivitySelectorModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activityTypes = ref.watch(activityTypesProvider);
-    final isCheckedIn = ref.watch(checkInsProvider.notifier).isCheckedIn(date);
-    final currentActivity = ref.watch(checkInsProvider.notifier).getActivityType(date);
+    // final isCheckedIn = ref.watch(checkInsProvider.notifier).isCheckedIn(date);
+    // final currentActivity = ref.watch(checkInsProvider.notifier).getActivityType(date);
+
+    final checkIns = ref.watch(checkInsProvider); // watch the state
+    final dateKey = DateFormat('yyyy-MM-dd').format(date);
+    final isCheckedIn = checkIns.containsKey(dateKey);
+    final currentActivity = checkIns[dateKey]?.activityType;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -70,7 +76,7 @@ class ActivitySelectorModal extends ConsumerWidget {
                   ],
                 ),
               ),
-              if (isCheckedIn)
+              // if (isCheckedIn)
                 IconButton(
                   onPressed: () {
                     ref.read(checkInsProvider.notifier).toggleCheckIn(date);

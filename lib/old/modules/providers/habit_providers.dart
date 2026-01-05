@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momentum/modules/models/habit_models.dart';
-import 'package:momentum/modules/services/local_storage_service.dart';
-import 'package:momentum/modules/utils/streak_calculator.dart';
+import 'package:momentum/old/modules/models/habit_models.dart';
+import 'package:momentum/old/modules/services/local_storage_service.dart';
+import 'package:momentum/old/modules/utils/streak_calculator.dart';
 
 // Habits provider
 final habitsProvider = StateNotifierProvider<HabitsNotifier, List<String>>((ref) {

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:momentum/pages/check_in_page.dart';
-import 'package:momentum/pages/history_page.dart';
+import 'package:momentum/old/pages/check_in_page.dart';
+import 'package:momentum/old/pages/history_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:momentum/modules/providers/habit_providers.dart';
-import 'package:momentum/modules/services/local_storage_service.dart';
+import 'package:momentum/old/modules/providers/habit_providers.dart';
+import 'package:momentum/old/modules/services/local_storage_service.dart';
 
 class SettingsModal extends ConsumerStatefulWidget {
   const SettingsModal({super.key});

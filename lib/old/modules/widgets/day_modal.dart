@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:momentum/modules/providers/habit_providers.dart';
+import 'package:momentum/old/modules/providers/habit_providers.dart';
 
 class DayModal extends ConsumerWidget {
   final DateTime date;

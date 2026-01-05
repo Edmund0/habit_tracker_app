@@ -16,6 +16,7 @@ class HistoryScreen extends ConsumerStatefulWidget {
 }
 
 class _HistoryScreenState extends ConsumerState<HistoryScreen> {
+  final DateTime _today = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -39,7 +40,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        DateFormat('MMMM yyyy').format(_focusedDay),
+                        DateFormat('MMMM yyyy').format(_today),
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,

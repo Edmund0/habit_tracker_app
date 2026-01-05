@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:momentum/widgets/settings/settings_modal.dart';
+import 'package:momentum/old/widgets/settings/settings_modal.dart';
 import 'package:provider/provider.dart';
-import 'package:momentum/services/database_service.dart';
-import 'package:momentum/widgets/stats_grid.dart';
-import 'package:momentum/widgets/orb_button.dart';
+import 'package:momentum/old/services/database_service.dart';
+import 'package:momentum/old/widgets/stats_grid.dart';
+import 'package:momentum/old/widgets/orb_button.dart';
 
 /// The main check-in page of the application.
 ///

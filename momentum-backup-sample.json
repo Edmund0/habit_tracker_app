@@ -1,0 +1,27 @@
+{
+  "checkIns": {
+    "2025-01-01": {
+      "date": "2025-01-01",
+      "activityType": "Gym",
+      "timestamp": "2025-01-01T08:30:00.000Z"
+    },
+    "2025-01-02": {
+      "date": "2025-01-02",
+      "activityType": "Run",
+      "timestamp": "2025-01-02T07:15:00.000Z"
+    },
+    "2025-01-03": {
+      "date": "2025-01-03",
+      "activityType": null,
+      "timestamp": "2025-01-03T09:00:00.000Z"
+    }
+  },
+  "activityTypes": [
+    "Run",
+    "Yoga",
+    "Gym",
+    "Walk",
+    "Bike"
+  ],
+  "exportedAt": "2025-01-05T12:00:00.000Z"
+}

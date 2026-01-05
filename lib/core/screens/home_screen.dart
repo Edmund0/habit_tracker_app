@@ -14,10 +14,11 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Watch for reactive updates
-    ref.watch(checkInsProvider);
+    final checkIns = ref.watch(checkInsProvider);
     final stats = ref.watch(streakStatsProvider);
     final today = DateTime.now();
-    final isCheckedIn = ref.read(checkInsProvider.notifier).isCheckedIn(today);
+    final dateKey = DateFormat('yyyy-MM-dd').format(today);
+    final isCheckedIn = checkIns.containsKey(dateKey);
 
     return Scaffold(
       backgroundColor: AppTheme.zinc900,
@@ -269,14 +270,17 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 11,
-              color: AppTheme.zinc500,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
-              height: 1.3,
+          SizedBox(
+            height: 28, // Fixed height for title area (fits 2 lines)
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 11,
+                color: AppTheme.zinc500,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                height: 1.3,
+              ),
             ),
           ),
           const SizedBox(height: 16),

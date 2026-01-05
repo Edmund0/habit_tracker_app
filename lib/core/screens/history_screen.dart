@@ -40,6 +40,15 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        DateFormat('EEEE').format(_today),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: AppTheme.zinc500,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
                         DateFormat('MMMM yyyy').format(_today),
                         style: const TextStyle(
                           fontSize: 28,
@@ -47,14 +56,14 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                           color: AppTheme.zinc100,
                         ),
                       ),
-                      Text(
-                        '${stats.monthlyCount} CHECK-INS',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: AppTheme.zinc500,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
+                      // Text(
+                      //   '${stats.monthlyCount} CHECK-INS',
+                      //   style: const TextStyle(
+                      //     fontSize: 12,
+                      //     color: AppTheme.zinc500,
+                      //     letterSpacing: 0.5,
+                      //   ),
+                      // ),
                     ],
                   ),
                   IconButton(
@@ -79,13 +88,26 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    DateFormat('MMMM yyyy').format(_focusedDay),
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.zinc100,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        DateFormat('MMMM yyyy').format(_focusedDay),
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w300,
+                          color: AppTheme.zinc100,
+                        ),
+                      ),
+                      Text(
+                      '${stats.monthlyCount} CHECK-INS',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppTheme.zinc500,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [
@@ -154,7 +176,12 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
                         builder: (context) => ActivitySelectorModal(date: selectedDay),
-                      );
+                      ).then((_) {
+                        // Clear selection when modal closes
+                        setState(() {
+                          _selectedDay = null;
+                        });
+                      });
                     },
                     onPageChanged: (focusedDay) {
                       setState(() {

@@ -56,7 +56,7 @@ class CheckInPage extends StatelessWidget {
               ),
               const Spacer(),
               // A flex factor of 2 gives the bottom spacer more room.
-              const Flexible(child: SizedBox(), flex: 2),
+              const Flexible(flex: 2, child: SizedBox()),
             ],
           );
         },

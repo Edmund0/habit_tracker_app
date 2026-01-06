@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import '../providers/check_in_provider.dart';
 import '../services/storage_service.dart';
+import '../services/export_format_service.dart';
 import '../theme/app_theme.dart';
 
 /// Settings screen for managing activity types and data
@@ -16,6 +17,7 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   final _textController = TextEditingController();
+  ExportFormat _selectedFormat = ExportFormat.json;
 
   @override
   void dispose() {
@@ -30,10 +32,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
+  Future<void> _handleExport() async {
+    await StorageService.exportData(format: _selectedFormat);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Data exported as ${_selectedFormat.displayName}'),
+          backgroundColor: AppTheme.electricLime,
+        ),
+      );
+    }
+  }
+
   Future<void> _handleImport() async {
+    // Build list of allowed extensions
+    final extensions = ExportFormat.values.map((f) => f.extension).toList();
+
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['json'],
+      allowedExtensions: extensions,
     );
 
     if (result != null && result.files.single.path != null) {
@@ -105,6 +123,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
         );
       }
+    }
+  }
+
+  String _getFormatDescription(ExportFormat format) {
+    switch (format) {
+      case ExportFormat.json:
+        return 'Standard JSON format, compatible with most apps';
+      case ExportFormat.csv:
+        return 'Spreadsheet format, open in Excel or Google Sheets';
+      case ExportFormat.markdown:
+        return 'Human-readable format, great for note-taking apps';
     }
   }
 
@@ -243,14 +272,75 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 16),
+            // Export format selector
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppTheme.zinc800,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppTheme.zinc700),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Export Format',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.zinc300,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: ExportFormat.values.map((format) {
+                      final isSelected = _selectedFormat == format;
+                      return ChoiceChip(
+                        label: Text(format.displayName),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          if (selected) {
+                            setState(() {
+                              _selectedFormat = format;
+                            });
+                          }
+                        },
+                        selectedColor: AppTheme.electricLime,
+                        backgroundColor: AppTheme.zinc700,
+                        labelStyle: TextStyle(
+                          color: isSelected ? AppTheme.zinc900 : AppTheme.zinc300,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        ),
+                        side: BorderSide(
+                          color: isSelected ? AppTheme.electricLime : AppTheme.zinc600,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    _getFormatDescription(_selectedFormat),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.zinc500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             // Export button
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: StorageService.exportData,
+              child: ElevatedButton.icon(
+                onPressed: _handleExport,
                 icon: const Icon(Icons.file_download_outlined),
                 label: const Text('Export Data'),
-                style: OutlinedButton.styleFrom(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.electricLime,
+                  foregroundColor: AppTheme.zinc900,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
               ),

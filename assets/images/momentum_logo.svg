@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- White background -->
+  <rect width="512" height="512" fill="#FFFFFF"/>
+
+  <!-- Circular progress arrow -->
+  <circle cx="256" cy="256" r="180" stroke="#34A853" stroke-width="20" fill="none"/>
+  <path d="M256 76
+           A180 180 0 0 1 436 256
+           L400 256
+           A140 140 0 0 0 256 116
+           Z"
+        fill="#34A853"/>
+
+  <!-- Inner circle -->
+  <circle cx="256" cy="256" r="80" fill="#000000"/>
+
+  <!-- Letter M for Momentum -->
+  <text x="256" y="292" text-anchor="middle" font-size="100" font-family="Arial" fill="#FFFFFF" font-weight="bold">M</text>
+</svg>

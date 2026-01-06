@@ -61,7 +61,23 @@ dependencies:
   # Modern web support with dart:js_interop (replaces dart:html)
   web: ^1.1.1
 
+  # SVG support
+  flutter_svg: ^2.0.1
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/momentum_logo.png
+
+  android: true
+  ios: true
+  web: true
+
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/momentum_logo.png
+
 dev_dependencies:
+  flutter_native_splash: ^2.4.3
   flutter_test:
     sdk: flutter
 
@@ -81,6 +97,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/momentum_logo.svg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

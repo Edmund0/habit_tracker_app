@@ -1,19 +1,26 @@
-// Web-specific file download implementation
 import 'dart:convert';
-// hack: services uses conditional import to prevent Mobile/Desktop issues
-import 'dart:html' as html;
+import 'dart:js_interop';
+import 'package:web/web.dart' as web;
 
-/// Download file on web platform
+/// Download file on web platform using modern web APIs
 void downloadFile(String content, String fileName) {
   final bytes = utf8.encode(content);
-  final blob = html.Blob([bytes], 'application/json');
-  final url = html.Url.createObjectUrlFromBlob(blob);
+
+  // Create blob from content
+  final blob = web.Blob(
+    [bytes.toJS].toJS,
+    web.BlobPropertyBag(type: 'application/octet-stream'),
+  );
+
+  // Create object URL from blob
+  final url = web.URL.createObjectURL(blob);
 
   // Create anchor element and trigger download
-  html.AnchorElement(href: url)
-    ..setAttribute('download', fileName)
-    ..click();
+  final anchor = web.document.createElement('a') as web.HTMLAnchorElement;
+  anchor.href = url;
+  anchor.download = fileName;
+  anchor.click();
 
   // Clean up the blob URL
-  html.Url.revokeObjectUrl(url);
+  web.URL.revokeObjectURL(url);
 }

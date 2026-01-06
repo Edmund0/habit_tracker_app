@@ -58,6 +58,9 @@ dependencies:
   # JSON
   json_annotation: ^4.8.1
 
+  # Modern web support with dart:js_interop (replaces dart:html)
+  web: ^1.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
